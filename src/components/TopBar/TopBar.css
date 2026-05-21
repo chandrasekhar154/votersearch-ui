@@ -18,7 +18,7 @@
 .top-panel-title {
   font-size: 22px;
   font-weight: 600;
-  /* letter-spacing: 0.5px; */
+  letter-spacing: 0.5px;
 }
 
 .top-panel-user-section {
@@ -54,4 +54,14 @@
 
 .dropdown-item:hover {
   background-color: #ccc8c8;
+}
+
+.top-panel-left-section {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.menu-icon {
+  cursor: pointer;
 }

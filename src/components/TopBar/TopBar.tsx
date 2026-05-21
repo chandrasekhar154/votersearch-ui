@@ -2,10 +2,13 @@ import { useRef, useState, useEffect } from "react";
 import { FaBars, FaUserCircle } from "react-icons/fa";
 import './TopBar.css'
 
-export default function TopBar() {
+interface ITopBarProps {
+	toggleSideBar: () => void;
+}
+
+export default function TopBar({ toggleSideBar }: ITopBarProps) {
 
 	const [showDropDown, setShowDropDown] = useState(false);
-	const [isCollapsed, setIsCollapsed] = useState<boolean>(false);
 
 	const dropdownRef = useRef<HTMLDivElement | null>(null);
 
@@ -27,10 +30,6 @@ export default function TopBar() {
 		console.log("Navigate to profile..!!");
 	}
 
-	function toggleSideBar() {
-		setIsCollapsed(!isCollapsed);
-	}
-
 	useEffect(() => {
 		document.addEventListener('mousedown', handleOutSideClick);
 
@@ -41,14 +40,15 @@ export default function TopBar() {
 
 	return (
 		<div className="top-panel">
-			<div>
+			<div className="top-panel-left-section">
 				<FaBars
-					className="sidebar-toggle-icon"
+					className="menu-icon"
 					onClick={toggleSideBar}
+					size={'1.3em'}
 				/>
-			</div>
-			<div className="top-panel-title">
-				AI - Voter Search
+				<div className="top-panel-title">
+					AI - Voter Search
+				</div>
 			</div>
 			<div className="top-panel-user-section" ref={dropdownRef}>
 				<FaUserCircle className="user-icon" size='1.5em' color="grey" onClick={toggleDropDown} />
