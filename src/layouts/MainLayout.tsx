@@ -2,23 +2,26 @@ import { useState } from "react";
 import ChatPanel from "../components/ChatPanel/ChatPanel";
 import SideBar from "../components/SideBar/SideBar";
 import TopBar from "../components/TopBar/TopBar";
-import './MainLayout.css'
+import "./MainLayout.css";
 
 export default function MainLayout() {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-	const [isSideBarCollapsed, setIsSideBarCollapsed] = useState<boolean>(false);
+  function toggleSideBar() {
+    setIsSidebarOpen((prev) => !prev);
+  }
 
-	function toggleSideBar() {
-		setIsSideBarCollapsed(!isSideBarCollapsed);
-	}
+  function closeSidebar() {
+    setIsSidebarOpen(false);
+  }
 
-	return (
-		<div className="main-layout-container">
-			<TopBar toggleSideBar={toggleSideBar} />
-			<div className="main-layout-body">
-				<SideBar isCollapsed={isSideBarCollapsed} />
-				<ChatPanel />
-			</div>
-		</div>
-	);
+  return (
+    <div className="main-layout-container">
+      <TopBar toggleSideBar={toggleSideBar} />
+      <div className="main-layout-body">
+        <SideBar isOpen={isSidebarOpen} closeSidebar={closeSidebar} />
+        <ChatPanel />
+      </div>
+    </div>
+  );
 }

@@ -3,16 +3,16 @@ import "./ChatPanel.css";
 import { useEffect, useRef, useState } from "react";
 import type { ChatMessage } from "../../types/chat";
 import { streamChatResponse } from "../../types/chatService";
+import { generateId } from "../../utils/generateId";
 
 export default function ChatPanel() {
   const [prompt, setPrompt] = useState<string>("");
   const [messages, setMessages] = useState<ChatMessage[]>([]);
-
   const [sessionId, setSessionId] = useState<string | null>(null);
-
   const [loading, setLoading] = useState<boolean>(false);
 
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
+  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
   function scrollToBottom() {
     messagesEndRef.current?.scrollIntoView({
@@ -30,12 +30,12 @@ export default function ChatPanel() {
     }
 
     const userMessage: ChatMessage = {
-      id: crypto.randomUUID(),
+      id: generateId(),
       type: "user",
       content: prompt,
     };
 
-    const assistantMessageId = crypto.randomUUID();
+    const assistantMessageId = generateId();
 
     const assistantMessage: ChatMessage = {
       id: assistantMessageId,
@@ -76,6 +76,7 @@ export default function ChatPanel() {
           setLoading(false);
         },
 
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         onError: (errorMessage: any) => {
           console.error(errorMessage);
 
@@ -89,10 +90,22 @@ export default function ChatPanel() {
     }
   }
 
-  function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
-    if (event.key === "Enter") {
+  function handleKeyDown(event: React.KeyboardEvent<HTMLTextAreaElement>) {
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault();
+
       handleSendPrompt();
     }
+  }
+
+  function handlePromptChange(event: React.ChangeEvent<HTMLTextAreaElement>) {
+    const textarea = event.target;
+
+    setPrompt(textarea.value);
+
+    textarea.style.height = "auto";
+
+    textarea.style.height = `${textarea.scrollHeight}px`;
   }
 
   return (
@@ -123,13 +136,13 @@ export default function ChatPanel() {
         <button className="upload-button">
           <FaPlus />
         </button>
-        <input
-          type="text"
+        <textarea
+          ref={textareaRef}
           value={prompt}
-          onChange={(e) => setPrompt(e.target.value)}
-          onKeyDown={handleKeyDown}
-          placeholder="Ask voter related questions..."
+          onChange={handlePromptChange}
+          placeholder="Ask voters related..."
           className="chat-input"
+          onKeyDown={handleKeyDown}
         />
 
         <button

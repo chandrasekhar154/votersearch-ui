@@ -44,7 +44,10 @@ export default function TopBar({ toggleSideBar }: ITopBarProps) {
     <div className="top-panel">
       <div className="top-panel-left-section">
         <FaBars className="menu-icon" onClick={toggleSideBar} size={"1.3em"} />
-        <div className="top-panel-title">AI - Voter Search</div>
+        <div className="top-panel-title">
+          <span className="desktop-title">AI - Voter Search</span>
+          <span className="mobile-title">AI Voter Search</span>
+        </div>
       </div>
       <div className="top-panel-user-section" ref={dropdownRef}>
         <FaUserCircle
