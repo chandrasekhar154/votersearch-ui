@@ -5,7 +5,7 @@ interface StreamCallbacks {
   onError?: (message: string) => void;
 }
 
-const API_BASE_URL = "http://127.0.0.1:8090/api";
+const API_BASE_URL = "http://174.129.64.81:8090/api";
 
 export async function streamChatResponse(
   prompt: string,
