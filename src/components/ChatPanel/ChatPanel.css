@@ -21,12 +21,12 @@
 
 .chat-input-section {
   height: 80px;
-  border-top: 2px solid #cbd5e1;
+  /* border-top: 2px solid #cbd5e1; */
 
   display: flex;
-  align-items: center;
+  align-items: flex-end;
 
-  padding: 0 20px;
+  padding: 10 20px;
   gap: 20px;
   background-color: white;
 }
@@ -45,11 +45,19 @@
 
 .chat-input {
   flex: 1;
-  height: 45px;
+  min-height: 45px;
+  max-height: 80px;
+  resize: none;
+  overflow-y: auto;
   border: 2px solid #cbd5e1;
   border-radius: 10px;
-  padding: 0 15px;
+  padding: 10px 15px;
   font-size: 16px;
+
+  line-height: 1.5;
+  outline: none;
+
+  font-family: inherit;
 }
 
 .chat-input:focus {
@@ -90,4 +98,25 @@
 
 .assistant-row {
   justify-content: flex-start;
+}
+
+@media screen and (max-width: 768px) {
+  .chat-input-section {
+    height: 60px;
+    gap: 10px;
+  }
+
+  .upload-button,
+  .send-button {
+    height: 30px;
+    width: 30px;
+  }
+
+  .message-row {
+    padding: 0 0;
+  }
+
+  .chat-input-section {
+    padding: 20px 10px;
+  }
 }
