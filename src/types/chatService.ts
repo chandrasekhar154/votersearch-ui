@@ -5,14 +5,12 @@ interface StreamCallbacks {
   onError?: (message: string) => void;
 }
 
-const API_BASE_URL = "";
-
 export async function streamChatResponse(
   prompt: string,
   sessionId: string | null,
   callbacks: StreamCallbacks,
 ) {
-  const response = await fetch(`${API_BASE_URL}/api/query/stream`, {
+  const response = await fetch(`/api/query/stream`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
