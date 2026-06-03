@@ -1,12 +1,12 @@
-import './main.css'
-import MainLayout from './layouts/MainLayout';
+import "./main.css";
+import AppRoutes from "./routes/AppRoutes";
 
 function App() {
   return (
     <div>
-      <MainLayout />
+      <AppRoutes />
     </div>
-  )
+  );
 }
 
 export default App;
