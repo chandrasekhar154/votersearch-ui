@@ -1,5 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 import { FaBars, FaUserCircle } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 import "./TopBar.css";
 
 interface ITopBarProps {
@@ -11,12 +12,14 @@ export default function TopBar({ toggleSideBar }: ITopBarProps) {
 
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
+  const navigate = useNavigate();
+
   function toggleDropDown() {
     setShowDropDown(!showDropDown);
   }
 
   function handleLogout() {
-    console.log("Logout clicked..!!");
+    navigate("/");
   }
 
   function handleOutSideClick(event: MouseEvent) {
